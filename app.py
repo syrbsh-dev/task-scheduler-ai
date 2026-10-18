@@ -28,9 +28,12 @@ html, body, [class*="css"], .stApp { font-family: 'Heebo', sans-serif; direction
 .hero p { color:#64748b; font-size:1.1rem; margin-top:.4rem; }
 .stTextArea textarea, .stTextInput input { direction: rtl; text-align: right; border-radius: 12px; }
 
-/* תיקון אגרסיבי לתצוגת השעות והתאריכים משמאל לימין */
-div[data-testid="stTimeInput"], div[data-testid="stTimeInput"] * { direction: ltr !important; text-align: right !important; }
-div[data-testid="stDateInput"], div[data-testid="stDateInput"] * { direction: ltr !important; text-align: right !important; }
+/* תיקון מדויק לשדות זמן ותאריך */
+div[data-testid="stTimeInput"] input, div[data-testid="stDateInput"] input {
+  direction: ltr !important;
+  text-align: center !important;
+  border-radius: 12px;
+}
 
 div.stButton > button { width:100%; border:0; border-radius:14px; padding:.8rem 1rem; font-size:1.15rem;
   font-weight:700; color:white; background: linear-gradient(90deg,#6366f1,#ec4899);
@@ -63,15 +66,12 @@ st.markdown(
 )
 
 # ---------------- חיבור ל-Gemini (ללא שמות מודלים קבועים) ----------------
-# מילים בשם מודל שמעידות שהוא לא מודל טקסט רגיל
 NON_TEXT = ("embed", "imagen", "tts", "image", "aqa", "live", "audio",
             "robotics", "computer-use", "veo", "native", "vision")
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def discover_models(key: str):
-    """שואל את ה-API אילו מודלים זמינים למפתח הזה ומחזיר רשימה ממוינת.
-    שום שם מודל לא כתוב בקוד, ולכן עדכוני גרסאות של גוגל לא שוברים כלום."""
     last_err = None
     for base in BASES:
         try:
@@ -141,7 +141,6 @@ def parse_json(text):
 
 
 def generate(key, candidates, prompt):
-    """עובר על המודלים הזמינים אחד אחרי השני עד שמודל מחזיר טבלה תקינה."""
     errors, last_raw, last_model = [], None, None
     for model, base in candidates:
         try:
@@ -212,7 +211,6 @@ def render_table(rows):
 # ----------------------------- ממשק -------------------------------
 with st.sidebar:
     st.header("⚙️ הגדרות")
-    # משיכת המפתח בצורה נסתרת ומאובטחת מהסודות של Streamlit
     key = st.secrets.get("GEMINI_API_KEY", "")
     models, chosen = [], "אוטומטי"
     if key:
