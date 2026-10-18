@@ -28,8 +28,9 @@ html, body, [class*="css"], .stApp { font-family: 'Heebo', sans-serif; direction
 .hero p { color:#64748b; font-size:1.1rem; margin-top:.4rem; }
 .stTextArea textarea, .stTextInput input { direction: rtl; text-align: right; border-radius: 12px; }
 
-/* תיקון לתצוגת השעות והתאריכים משמאל לימין */
-div[data-testid="stTimeInput"] input, div[data-testid="stDateInput"] input { direction: ltr; text-align: right; border-radius: 12px; }
+/* תיקון אגרסיבי לתצוגת השעות והתאריכים משמאל לימין */
+div[data-testid="stTimeInput"], div[data-testid="stTimeInput"] * { direction: ltr !important; text-align: right !important; }
+div[data-testid="stDateInput"], div[data-testid="stDateInput"] * { direction: ltr !important; text-align: right !important; }
 
 div.stButton > button { width:100%; border:0; border-radius:14px; padding:.8rem 1rem; font-size:1.15rem;
   font-weight:700; color:white; background: linear-gradient(90deg,#6366f1,#ec4899);
@@ -211,7 +212,7 @@ def render_table(rows):
 # ----------------------------- ממשק -------------------------------
 with st.sidebar:
     st.header("⚙️ הגדרות")
-    # משיכת המפתח בצורה נסתרת ומאובטחת
+    # משיכת המפתח בצורה נסתרת ומאובטחת מהסודות של Streamlit
     key = st.secrets.get("GEMINI_API_KEY", "")
     models, chosen = [], "אוטומטי"
     if key:
@@ -236,7 +237,7 @@ extra = st.text_input("אילוצים או הערות (לא חובה)",
 
 if st.button("✨ סדר לי את היום"):
     if not key:
-        st.warning("הזן Gemini API Key בהגדרות ה-Secrets של Streamlit.")
+        st.warning("לא נמצא מפתח API בהגדרות ה-Secrets.")
     elif not tasks.strip():
         st.warning("כתוב לפחות מטלה אחת.")
     elif not models:
