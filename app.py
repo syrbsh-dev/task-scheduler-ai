@@ -32,12 +32,12 @@ html, body, [class*="css"], .stApp { font-family: 'Heebo', sans-serif; direction
 div[data-testid="stTimeInput"] input {
   direction: ltr !important;
   unicode-bidi: bidi-override !important;
-  text-align: center !important;
+  text-align: right !important;
   border-radius: 12px;
 }
 div[data-testid="stDateInput"] input {
   direction: ltr !important;
-  text-align: center !important;
+  text-align: right !important;
   border-radius: 12px;
 }
 
@@ -60,7 +60,7 @@ table.plan td:last-child { border-radius:12px 0 0 12px; color:#64748b; font-size
 .high { background:#fee2e2; color:#b91c1c; }
 .mid  { background:#fef3c7; color:#b45309; }
 .low  { background:#dcfce7; color:#15803d; }
-.time { font-weight:700; color:#0f172a; white-space:nowrap; direction: ltr; display: inline-block; }
+.time { font-weight:700; color:#0f172a; white-space:nowrap; direction: ltr; display: inline-block; unicode-bidi: bidi-override; }
 .tip { background:#f1f5f9; border-radius:12px; padding:.6rem .9rem; margin:.4rem 0; color:#334155; }
 </style>
 """, unsafe_allow_html=True)
