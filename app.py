@@ -28,8 +28,14 @@ html, body, [class*="css"], .stApp { font-family: 'Heebo', sans-serif; direction
 .hero p { color:#64748b; font-size:1.1rem; margin-top:.4rem; }
 .stTextArea textarea, .stTextInput input { direction: rtl; text-align: right; border-radius: 12px; }
 
-/* תיקון מדויק לשדות זמן ותאריך */
-div[data-testid="stTimeInput"] input, div[data-testid="stDateInput"] input {
+/* תיקון מדויק לתצוגת השעות והתאריכים למניעת היפוך ספרות */
+div[data-testid="stTimeInput"] input {
+  direction: ltr !important;
+  unicode-bidi: bidi-override !important;
+  text-align: center !important;
+  border-radius: 12px;
+}
+div[data-testid="stDateInput"] input {
   direction: ltr !important;
   text-align: center !important;
   border-radius: 12px;
