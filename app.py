@@ -27,6 +27,10 @@ html, body, [class*="css"], .stApp { font-family: 'Heebo', sans-serif; direction
   -webkit-text-fill-color: transparent; }
 .hero p { color:#64748b; font-size:1.1rem; margin-top:.4rem; }
 .stTextArea textarea, .stTextInput input { direction: rtl; text-align: right; border-radius: 12px; }
+
+/* תיקון לתצוגת השעות והתאריכים משמאל לימין */
+div[data-testid="stTimeInput"] input, div[data-testid="stDateInput"] input { direction: ltr; text-align: right; border-radius: 12px; }
+
 div.stButton > button { width:100%; border:0; border-radius:14px; padding:.8rem 1rem; font-size:1.15rem;
   font-weight:700; color:white; background: linear-gradient(90deg,#6366f1,#ec4899);
   box-shadow: 0 8px 20px rgba(99,102,241,.35); transition: transform .15s; }
@@ -46,7 +50,7 @@ table.plan td:last-child { border-radius:12px 0 0 12px; color:#64748b; font-size
 .high { background:#fee2e2; color:#b91c1c; }
 .mid  { background:#fef3c7; color:#b45309; }
 .low  { background:#dcfce7; color:#15803d; }
-.time { font-weight:700; color:#0f172a; white-space:nowrap; }
+.time { font-weight:700; color:#0f172a; white-space:nowrap; direction: ltr; display: inline-block; }
 .tip { background:#f1f5f9; border-radius:12px; padding:.6rem .9rem; margin:.4rem 0; color:#334155; }
 </style>
 """, unsafe_allow_html=True)
@@ -232,7 +236,7 @@ extra = st.text_input("אילוצים או הערות (לא חובה)",
 
 if st.button("✨ סדר לי את היום"):
     if not key:
-        st.warning("הזן Gemini API Key בסרגל הצד.")
+        st.warning("הזן Gemini API Key בהגדרות ה-Secrets של Streamlit.")
     elif not tasks.strip():
         st.warning("כתוב לפחות מטלה אחת.")
     elif not models:
