@@ -1,4 +1,4 @@
-import datetime
+   import datetime
 import html as ihtml
 import json
 import os
@@ -207,9 +207,8 @@ def render_table(rows):
 # ----------------------------- ממשק -------------------------------
 with st.sidebar:
     st.header("⚙️ הגדרות")
-    key = st.text_input("Gemini API Key", type="password",
-                        value=os.environ.get("GEMINI_API_KEY", ""),
-                        help="אפשר להשיג בחינם ב-aistudio.google.com/apikey")
+    # משיכת המפתח בצורה נסתרת ומאובטחת
+    key = st.secrets.get("GEMINI_API_KEY", "")
     models, chosen = [], "אוטומטי"
     if key:
         try:
